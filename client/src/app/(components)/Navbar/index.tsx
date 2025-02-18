@@ -1,10 +1,11 @@
 "use client";
 
 import React from 'react';
-import { Menu, Bell, Search, Sun, Settings } from 'lucide-react';
+import { Menu, Bell, Search, Sun, Moon, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/app/redux';
-import { setIsSidebarCollapsed } from '@/state';
+import { setIsSidebarCollapsed, setIsDarkMode } from '@/state';
+import DarkModeToggle from '@/app/(functionalities)/DarkModeToggle';
 
 const Navbar = () => {
 
@@ -14,8 +15,16 @@ const Navbar = () => {
     (state) => state.global.isSidebarCollapsed
   );
 
+  const isDarkMode = useAppSelector(
+    (state) => state.global.isDarkMode
+  );
+
   const toggleSidebar = () => {
     dispatch(setIsSidebarCollapsed(!isSidebarCollapsed));
+  }
+
+  const toggleDarkMode = () => {
+    dispatch(setIsDarkMode(!isDarkMode));
   }
 
   return (
@@ -41,9 +50,15 @@ const Navbar = () => {
       <div className='flex justify-between items-center gap-5'>
         <div className='hidden md:flex justify-between items-center gap-5'>
           <div>
-            <button title="Toggle" onClick={toggleSidebar}>
-              <Sun className='cursor-pointer text-gray-500' size={24} />
-            </button>
+            {/* <button title="Toggle" onClick={toggleDarkMode}>
+              {
+                isDarkMode ?
+                  <Moon className='cursor-pointer text-gray-500' size={24} />
+                :
+                  <Sun className='cursor-pointer text-gray-500' size={24} />
+              }
+            </button> */}
+            <DarkModeToggle/>
           </div>
           <div className='relative'>
             <Bell className='cursor-pointer text-gray-500 size-500' />
@@ -52,14 +67,14 @@ const Navbar = () => {
             </span>
           </div>
 
-          <hr className='w-0 h-7 border border-solid border-l border-gray-300 mx-3'/>
+          <hr className='w-0 h-7 border border-solid border-l border-gray-300 mx-3' />
           <div className='flex items-center gap-3 cursor-pointer'>
             Image
             <span className='font-semibold'> Yuvraj Singh </span>
           </div>
         </div>
         <Link href='/settings'>
-        <Settings className='cursor-pointer text-gray-500' size={24} />
+          <Settings className='cursor-pointer text-gray-500' size={24} />
         </Link>
 
       </div>

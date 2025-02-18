@@ -66,7 +66,7 @@ const Sidebar = () => {
   );
 
   const isDarkMode = useAppSelector(
-    (state) => state.global.isDarkMode;
+    (state) => state.global.isDarkMode
   );
 
   const toggleSidebar = () => {
