@@ -5,20 +5,20 @@ import path from "path";
 const prisma = new PrismaClient();
 
 async function deleteAllData(orderedFileNames: string[]) {
-  const modelNames = orderedFileNames.map((fileName) => {
-    const modelName = path.basename(fileName, path.extname(fileName));
-    return modelName.charAt(0).toUpperCase() + modelName.slice(1);
-  });
+  const reversedModelNames = orderedFileNames
+    .map((fileName) => {
+      const modelName = path.basename(fileName, path.extname(fileName));
+      return modelName.charAt(0).toUpperCase() + modelName.slice(1);
+    })
+    .reverse(); // Reverse the order to delete child records first
 
-  for (const modelName of modelNames) {
+  for (const modelName of reversedModelNames) {
     const model: any = prisma[modelName as keyof typeof prisma];
     if (model) {
       await model.deleteMany({});
       console.log(`Cleared data from ${modelName}`);
     } else {
-      console.error(
-        `Model ${modelName} not found. Please ensure the model name is correctly specified.`
-      );
+      console.error(`Model ${modelName} not found.`);
     }
   }
 }

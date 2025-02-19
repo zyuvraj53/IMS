@@ -57,9 +57,9 @@ model Expenses {
 }
 
 model SalesSummary {
-  salesSummary     String   @id
-  totalPurchased   Float
-  changePercentage Float
+  salesSummaryId   String   @id
+  totalValue       Float
+  changePercentage Float?
   date             DateTime
 }
 
@@ -78,10 +78,10 @@ model ExpenseSummary {
 }
 
 model ExpenseByCategory {
-  expenseByCategory String         @id
-  expenseSummaryId  String
-  category          String
-  amount            BigInt
-  date              DateTime
-  expenseSummary    ExpenseSummary @relation(fields: [expenseSummaryId], references: [expenseSummaryId])
+  expenseByCategoryId String         @id
+  expenseSummaryId    String
+  category            String
+  amount              BigInt
+  date                DateTime
+  expenseSummary      ExpenseSummary @relation(fields: [expenseSummaryId], references: [expenseSummaryId])
 }
