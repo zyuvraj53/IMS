@@ -1,10 +1,10 @@
 "use client";
 
 import React from 'react';
-import { Menu, Bell, Search, Sun, Moon, Settings } from 'lucide-react';
+import { Menu, Bell, Search, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/app/redux';
-import { setIsSidebarCollapsed, setIsDarkMode } from '@/state';
+import { setIsSidebarCollapsed } from '@/state';
 import DarkModeToggle from '@/app/(functionalities)/DarkModeToggle';
 
 const Navbar = () => {
@@ -15,17 +15,10 @@ const Navbar = () => {
     (state) => state.global.isSidebarCollapsed
   );
 
-  const isDarkMode = useAppSelector(
-    (state) => state.global.isDarkMode
-  );
-
   const toggleSidebar = () => {
     dispatch(setIsSidebarCollapsed(!isSidebarCollapsed));
   }
 
-  const toggleDarkMode = () => {
-    dispatch(setIsDarkMode(!isDarkMode));
-  }
 
   return (
     <div className='flex justify-between items-center w-full mb-7'>
